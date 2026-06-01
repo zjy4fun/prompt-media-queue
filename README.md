@@ -25,6 +25,16 @@ Open:
 
 The MVP ships with deterministic sample connector results for YouTube and Bilibili so the product flow works without API keys. Real platform integrations can be added behind the connector interface in `apps/api/src/connectors`.
 
+## Validation
+
+Run the full strict check before committing:
+
+```bash
+pnpm validate
+```
+
+This runs ESLint with `--max-warnings=0`, TypeScript checks, and production builds.
+
 ## Environment
 
 ```bash

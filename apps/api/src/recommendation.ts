@@ -44,12 +44,12 @@ function expandPrompt(prompt: string, platforms: Platform[]): Record<Platform, s
     bilibili: [`${cleanPrompt} 歌单`, `${cleanPrompt} 合集`]
   } satisfies Record<Platform, string[]>;
 
-  return platforms.reduce(
+  return platforms.reduce<Record<Platform, string[]>>(
     (acc, platform) => {
       acc[platform] = platformQueries[platform];
       return acc;
     },
-    { youtube: [], bilibili: [] } as Record<Platform, string[]>
+    { youtube: [], bilibili: [] }
   );
 }
 

@@ -58,12 +58,12 @@ export type AggregateResponse = {
 export const defaultPlatforms: Platform[] = ["youtube", "bilibili"];
 
 export function normalizeAggregateRequest(input: Partial<AggregateRequest>): AggregateRequest {
-  const prompt = String(input.prompt ?? "").trim();
+  const prompt = input.prompt?.trim() ?? "";
 
   return {
     prompt,
     platforms: input.platforms?.length ? input.platforms : defaultPlatforms,
-    limit: clamp(Number(input.limit ?? 18), 5, 40),
+    limit: clamp(input.limit ?? 18, 5, 40),
     mode: input.mode ?? "mixed"
   };
 }

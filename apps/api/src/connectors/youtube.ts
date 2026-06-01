@@ -6,8 +6,8 @@ const sampleVideoIds = ["jfKfPfyJRdk", "DWcJFNfaw9c", "5qap5aO4i9A", "NJuSStkIZB
 export const youtubeConnector: PlatformConnector = {
   platform: "youtube",
 
-  async search(input: SearchInput) {
-    return sampleVideoIds.slice(0, input.limit).map((videoId, index): UnifiedMediaItem => ({
+  search(input: SearchInput) {
+    return Promise.resolve(sampleVideoIds.slice(0, input.limit).map((videoId, index): UnifiedMediaItem => ({
       id: `youtube:${videoId}`,
       platform: "youtube",
       externalId: videoId,
@@ -21,18 +21,18 @@ export const youtubeConnector: PlatformConnector = {
       playableMode: "embed",
       score: 88 - index * 5,
       reason: "Matched the prompt mood and is embeddable through YouTube."
-    }));
+    })));
   },
 
-  async resolveUrl(url: string) {
+  resolveUrl(url: string) {
     const parsed = new URL(url);
     const videoId = parsed.searchParams.get("v") ?? parsed.pathname.split("/").filter(Boolean).pop();
 
     if (!videoId) {
-      return null;
+      return Promise.resolve(null);
     }
 
-    return {
+    return Promise.resolve({
       id: `youtube:${videoId}`,
       platform: "youtube",
       externalId: videoId,
@@ -45,7 +45,7 @@ export const youtubeConnector: PlatformConnector = {
       playableMode: "embed",
       score: 70,
       reason: "Imported from a YouTube link."
-    };
+    });
   },
 
   getEmbedConfig(item) {

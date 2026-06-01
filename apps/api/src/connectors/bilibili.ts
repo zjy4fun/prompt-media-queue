@@ -11,8 +11,8 @@ const sampleVideos = [
 export const bilibiliConnector: PlatformConnector = {
   platform: "bilibili",
 
-  async search(input: SearchInput) {
-    return sampleVideos.slice(0, input.limit).map((video, index): UnifiedMediaItem => ({
+  search(input: SearchInput) {
+    return Promise.resolve(sampleVideos.slice(0, input.limit).map((video, index): UnifiedMediaItem => ({
       id: `bilibili:${video.bvid}`,
       platform: "bilibili",
       externalId: video.bvid,
@@ -26,17 +26,17 @@ export const bilibiliConnector: PlatformConnector = {
       playableMode: "embed",
       score: 84 - index * 4,
       reason: "Matched Chinese-language discovery intent and supports iframe playback."
-    }));
+    })));
   },
 
-  async resolveUrl(url: string) {
-    const bvid = url.match(/BV[a-zA-Z0-9]+/)?.[0];
+  resolveUrl(url: string) {
+    const bvid = /BV[a-zA-Z0-9]+/.exec(url)?.[0];
 
     if (!bvid) {
-      return null;
+      return Promise.resolve(null);
     }
 
-    return {
+    return Promise.resolve({
       id: `bilibili:${bvid}`,
       platform: "bilibili",
       externalId: bvid,
@@ -48,7 +48,7 @@ export const bilibiliConnector: PlatformConnector = {
       playableMode: "embed",
       score: 70,
       reason: "Imported from a Bilibili link."
-    };
+    });
   },
 
   getEmbedConfig(item) {

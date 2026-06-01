@@ -11,7 +11,7 @@ await server.register(cors, {
   origin: true
 });
 
-server.get("/health", async () => ({
+server.get("/health", () => ({
   ok: true,
   service: "prompt-media-queue-api"
 }));

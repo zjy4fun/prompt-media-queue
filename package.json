@@ -6,13 +6,20 @@
   "scripts": {
     "dev": "pnpm --parallel dev",
     "build": "pnpm -r build",
-    "lint": "pnpm -r lint",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "validate": "pnpm lint && pnpm typecheck && pnpm build",
     "typecheck": "pnpm --filter @prompt-media-queue/shared build && pnpm -r --filter './apps/*' typecheck"
   },
   "packageManager": "pnpm@11.1.2",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^24.10.1",
-    "typescript": "^5.9.3"
+    "eslint": "^10.4.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.60.0"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
