@@ -1,0 +1,23 @@
+{
+  "name": "prompt-media-queue",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prompt-driven cross-platform media queue built with a TypeScript monorepo.",
+  "scripts": {
+    "dev": "pnpm --parallel dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm --filter @prompt-media-queue/shared build && pnpm -r --filter './apps/*' typecheck"
+  },
+  "packageManager": "pnpm@11.1.2",
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}
